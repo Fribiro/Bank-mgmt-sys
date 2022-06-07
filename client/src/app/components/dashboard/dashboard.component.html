@@ -1,1 +1,26 @@
-<p>dashboard works!</p>
+<div class="dash-wrapper">
+    <table>
+        <th>ClientId</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Join Date</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Street</th>
+        <th>Zip-Code</th>
+        <th>City</th>
+        <tbody>
+            <tr *ngFor="let clients of bankClients">
+                <td>{{ clients.ClientId }}</td>
+                <td>{{ clients.ClientFirstName }}</td>
+                <td>{{ clients.ClientLastName }}</td>
+                <td>{{ clients.ClientJoinDate }}</td>
+                <td>{{ clients.ClientEmail }}</td>
+                <td>{{ clients.ClientPhone }}</td>
+                <td>{{ clients.ClientStreet }}</td>
+                <td>{{ clients.ClientZipCode }}</td>
+                <td>{{ clients.ClientCity }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

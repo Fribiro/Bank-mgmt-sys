@@ -1,5 +1,5 @@
 create table ClientAccount (
-	ClientAccountId INTEGER,
+	ClientAccountId SERIAL,
 	ClientAccountType VARCHAR(15) NOT NULL,
 	ClientAccountBalance VARCHAR(10),
 	
@@ -7,7 +7,7 @@ create table ClientAccount (
 );
 
 create table ClientDeposits (
-	DepositId INTEGER,
+	DepositId SERIAL,
 	DepositType VARCHAR(15),
 	DepositAmount VARCHAR(10),
 	DepositDate TIMESTAMP,
@@ -17,7 +17,7 @@ create table ClientDeposits (
 );
 
 create table ClientWithdrawals (
-	WithdrawalId INTEGER,
+	WithdrawalId SERIAL,
 	WithdrawalType VARCHAR(15),
 	WithdrawalAmount VARCHAR(10),
 	WithdrawalDate TIMESTAMP,
@@ -27,7 +27,7 @@ create table ClientWithdrawals (
 );
 
 create table BankClients (
-	ClientId INTEGER NOT NULL,
+	ClientId SERIAL NOT NULL,
 	ClientFirstName VARCHAR(15) NOT NULL,
 	ClientLastName VARCHAR(15) NOT NULL NOT NULL,
 	ClientJoinDate TIMESTAMP NOT NULL,
