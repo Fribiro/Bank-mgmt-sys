@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientAccounts } from 'src/app/models/clientaccount.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService) { }
+
+  bankClients: ClientAccounts[] = [];
 
   ngOnInit(): void {
+    this.userService.getAllBankClients()
+    .subscribe(
+      response => {
+        this.bankClients = response;
+        console.log(this.bankClients);
+      }
+    )
   }
 
 }
