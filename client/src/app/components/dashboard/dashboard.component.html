@@ -3,23 +3,15 @@
         <th>ClientId</th>
         <th>First Name</th>
         <th>Last Name</th>
-        <th>Join Date</th>
         <th>Email</th>
         <th>Phone</th>
-        <th>Street</th>
-        <th>Zip-Code</th>
-        <th>City</th>
         <tbody>
             <tr *ngFor="let clients of bankClients">
-                <td>{{ clients.ClientId }}</td>
-                <td>{{ clients.ClientFirstName }}</td>
-                <td>{{ clients.ClientLastName }}</td>
-                <td>{{ clients.ClientJoinDate }}</td>
-                <td>{{ clients.ClientEmail }}</td>
-                <td>{{ clients.ClientPhone }}</td>
-                <td>{{ clients.ClientStreet }}</td>
-                <td>{{ clients.ClientZipCode }}</td>
-                <td>{{ clients.ClientCity }}</td>
+                <td>{{ clients.clientId }}</td>
+                <td>{{ clients.firstName }}</td>
+                <td>{{ clients.lastName }}</td>
+                <td>{{ clients.email }}</td>
+                <td>{{ clients.phone }}</td>
             </tr>
         </tbody>
     </table>
