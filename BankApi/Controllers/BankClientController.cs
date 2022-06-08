@@ -25,7 +25,7 @@ namespace BankApi.Controllers
         }
 
         [HttpGet]
-        [Route("{ClientId:int")]
+        [Route("{ClientId}")]
         public async Task<IActionResult> GetBankClientById(int ClientId) {
             
             var bankClient = await dbContext.BankClients.FirstOrDefaultAsync(bC => bC.ClientId == ClientId);

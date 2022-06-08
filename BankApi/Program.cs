@@ -8,6 +8,11 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<BankApiContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("BankAppCon")));
 
+builder.Services.AddCors(options => options.AddPolicy("default", policy =>
+{
+    policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+}));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +27,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors("default");
 
 app.UseAuthorization();
 
