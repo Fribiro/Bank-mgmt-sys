@@ -51,4 +51,13 @@ export class AdminViewClientComponent implements OnInit {
     )
   }
 
+  deleteClient(): void {
+    this.userService.deleteBankClient(this.bankClient?.id)
+    .subscribe(
+      response => {
+        alert('Deleted Successfully')
+      }
+    )
+  }
+
 }

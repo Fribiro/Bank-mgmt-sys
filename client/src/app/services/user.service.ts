@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AddClient } from '../models/addclient.model';
 import { ClientAccounts } from '../models/clientaccount.model';
 import { UpdateClient } from '../models/updateclient.model';
 
@@ -24,5 +25,13 @@ export class UserService {
 
   updateBankClient(id: string | undefined, updateClient: UpdateClient): Observable<ClientAccounts> {
     return this.http.put<ClientAccounts>(this.apiBaseUrl + '/api/BankClient/' + id, updateClient)
+  }
+
+  addBankClient(addClient: AddClient): Observable<ClientAccounts> {
+    return this.http.post<ClientAccounts>(this.apiBaseUrl + '/api/BankClient', addClient)
+  }
+
+  deleteBankClient(id: string | undefined): Observable<ClientAccounts> {
+    return this.http.delete<ClientAccounts>(this.apiBaseUrl + '/api/BankClient/' + id)
   }
 }

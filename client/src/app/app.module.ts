@@ -9,7 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminViewClientComponent } from './components/admin-view-client/admin-view-client.component';
 import { FormsModule } from '@angular/forms';
-import { AdminAddClientComponent } from './admin-add-client/admin-add-client.component';
+import { AdminAddClientComponent } from './components/admin-add-client/admin-add-client.component';
 
 @NgModule({
   declarations: [
