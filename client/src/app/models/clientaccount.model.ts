@@ -1,5 +1,5 @@
 export interface ClientAccounts {
-    clientId: number;
+    id: string;
     firstName: string;
     lastName: string;
     email: string;

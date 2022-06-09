@@ -1,4 +1,5 @@
 using BankApi.Models;
+using BankApi.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,14 +26,79 @@ namespace BankApi.Controllers
         }
 
         [HttpGet]
-        [Route("{ClientId}")]
-        public async Task<IActionResult> GetBankClientById(int ClientId) {
+        [Route("{Id:guid}")]
+        [ActionName("GetBankClientById")]
+        public async Task<IActionResult> GetBankClientById(Guid Id) {
             
-            var bankClient = await dbContext.BankClients.FirstOrDefaultAsync(bC => bC.ClientId == ClientId);
+            var bankClient = await dbContext.BankClients.FirstOrDefaultAsync(bC => bC.Id == Id);
 
             if (bankClient != null)
             {
                 return Ok(bankClient);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBankClient(AddBankClient addBankClient)
+        {
+            //convert DTO to Entity
+            var bankclient = new BankClients()
+            {
+                FirstName = addBankClient.FirstName,
+                LastName = addBankClient.LastName,
+                Email = addBankClient.Email,
+                Phone = addBankClient.Phone
+            };
+
+            bankclient.Id = Guid.NewGuid();
+            await dbContext.BankClients.AddAsync(bankclient);
+            await dbContext.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetBankClientById), new { Id = bankclient.Id }, bankclient);
+            
+        }
+
+        [HttpPut]
+        [Route("{Id:guid}")]
+
+        public async Task<IActionResult> UpdateBankClient([FromRoute] Guid Id, UpdateClient updateClient)
+        {
+
+            //check if client exists
+            var existingClient = await dbContext.BankClients.FindAsync(Id);
+
+            if (existingClient != null )
+            {
+                existingClient.FirstName = updateClient.FirstName;
+                existingClient.LastName = updateClient.LastName;
+                existingClient.Email = updateClient.Email;
+                existingClient.Phone = updateClient.Phone;
+
+                await dbContext.SaveChangesAsync();
+
+                return Ok(existingClient);
+
+            }
+
+            return NotFound();
+
+        }
+
+        [HttpDelete]
+        [Route("{Id:guid}")]
+
+        public async Task<IActionResult> DeleteClient(Guid Id)
+        {
+            var existingClient = await dbContext.BankClients.FindAsync(Id);
+
+            if (existingClient != null)
+            {
+                dbContext.Remove(existingClient);
+                await dbContext.SaveChangesAsync();
+
+                return Ok(existingClient);
             }
 
             return NotFound();
