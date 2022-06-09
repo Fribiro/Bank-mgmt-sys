@@ -10,6 +10,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminViewClientComponent } from './components/admin-view-client/admin-view-client.component';
 import { FormsModule } from '@angular/forms';
 import { AdminAddClientComponent } from './components/admin-add-client/admin-add-client.component';
+import { ClientDetailsComponent } from './components/client/client-details/client-details.component';
+import { ClientDepositComponent } from './components/client/client-deposit/client-deposit.component';
+import { ClientWithdrawalsComponent } from './components/client/client-withdrawals/client-withdrawals.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { AdminAddClientComponent } from './components/admin-add-client/admin-add
     LoginComponent,
     DashboardComponent,
     AdminViewClientComponent,
-    AdminAddClientComponent
+    AdminAddClientComponent,
+    ClientDetailsComponent,
+    ClientDepositComponent,
+    ClientWithdrawalsComponent
   ],
   imports: [
     BrowserModule,
