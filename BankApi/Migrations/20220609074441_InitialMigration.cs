@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -13,8 +13,7 @@ namespace BankApi.Migrations
                 name: "BankClients",
                 columns: table => new
                 {
-                    ClientId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: true),
@@ -22,7 +21,7 @@ namespace BankApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BankClients", x => x.ClientId);
+                    table.PrimaryKey("PK_BankClients", x => x.Id);
                 });
         }
 

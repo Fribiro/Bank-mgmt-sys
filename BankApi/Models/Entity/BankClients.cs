@@ -4,8 +4,8 @@ namespace BankApi.Models
 {
     public class BankClients
     {
-        [Key]
-        public Guid ClientId { get; set; }
+        
+        public Guid Id { get; set; }
 
         public string? FirstName { get; set; }
 
