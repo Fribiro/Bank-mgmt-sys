@@ -13,6 +13,10 @@ import { AdminAddClientComponent } from './components/admin-add-client/admin-add
 import { ClientDetailsComponent } from './components/client/client-details/client-details.component';
 import { ClientDepositComponent } from './components/client/client-deposit/client-deposit.component';
 import { ClientWithdrawalsComponent } from './components/client/client-withdrawals/client-withdrawals.component';
+import { ClientUpdateComponent } from './components/client/client-update/client-update.component';
+import { ClientWithdrawalFormComponent } from './components/client/client-withdrawal-form/client-withdrawal-form.component';
+import { ClientDepositFormComponent } from './components/client/client-deposit-form/client-deposit-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,13 +28,17 @@ import { ClientWithdrawalsComponent } from './components/client/client-withdrawa
     AdminAddClientComponent,
     ClientDetailsComponent,
     ClientDepositComponent,
-    ClientWithdrawalsComponent
+    ClientWithdrawalsComponent,
+    ClientUpdateComponent,
+    ClientWithdrawalFormComponent,
+    ClientDepositFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

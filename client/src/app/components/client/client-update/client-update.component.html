@@ -1,10 +1,7 @@
 <div class="container" *ngIf="bankClient" >
-    <h1>View Client</h1>
+    <h1>My Profile</h1>
     <form #form="ngForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-          <label class="form-label">Id</label>
-          <input type="text" class="form-control" id="id-admin-view" name="id" [(ngModel)]="bankClient.id">
-        </div>
+       
         <div class="mb-3">
             <label class="form-label">Firstname</label>
             <input type="text" class="form-control" name="firstName" [(ngModel)]="bankClient.firstName">
@@ -21,14 +18,8 @@
             <label class="form-label">Phone</label>
             <input type="text" class="form-control" name="phone" [(ngModel)]="bankClient.phone">
         </div>
-        <div class="button-pair">
-            <div class="mb-3">
-                <button class="btn btn-primary">Save</button>
-            </div>
-            <div class="mb-3">
-                <a class="btn btn-danger" (click)="deleteClient()">Delete</a>
-            </div>
+        <div class="mb-3">
+            <button class="btn btn-primary">Save</button>
         </div>
-        
       </form>
 </div>

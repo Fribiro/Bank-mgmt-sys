@@ -5,11 +5,11 @@ import { UpdateClient } from 'src/app/models/updateclient.model';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-client-deposit',
-  templateUrl: './client-deposit.component.html',
-  styleUrls: ['./client-deposit.component.css']
+  selector: 'app-client-update',
+  templateUrl: './client-update.component.html',
+  styleUrls: ['./client-update.component.css']
 })
-export class ClientDepositComponent implements OnInit {
+export class ClientUpdateComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private userService: UserService ) { }
 

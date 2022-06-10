@@ -1,28 +1,66 @@
-<div class="container" *ngIf="bankClient" >
-    <h1>My Profile</h1>
-    <form #form="ngForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-          <label class="form-label">Id</label>
-          <input type="text" class="form-control" name="id" [(ngModel)]="bankClient.id">
+<div class="client-container" *ngIf="bankClient" >
+    <div class="profile-nav">
+
+    </div>
+    <div class="profile-body">
+        <div class="profile-sidebar">
+            <ul>
+                <li>
+                    <a href="" [routerLink]="['/client-details', bankClient.id]">Profile</a>
+                </li>
+                <li>
+                    <a href="" [routerLink]="['/my-deposits', bankClient.id]">Deposits</a>
+                </li>
+                <li>
+                    <a href="" [routerLink]="['/my-withdrawals', bankClient.id]">Withdrawals</a>
+                </li>
+            </ul>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Firstname</label>
-            <input type="text" class="form-control" name="firstName" [(ngModel)]="bankClient.firstName">
+        <div class="profile-wrapper">
+            <!-- <h1>My Profile</h1> -->
+            <div class="profile-details-nav">
+    
+            </div>
+            <div class="profile-details-body">
+                <div class="client-update-btn">
+                    <button [routerLink]="['/update-profile', bankClient.id]">Update</button>
+                </div>
+                <div class="client-details">
+                    <div class="det-pair">
+                        <div class="info"></div>
+                        <div class="info"></div>
+                    </div>
+    
+                    <form #form="ngForm" (ngSubmit)="onSubmit()">
+                        <div class="info">
+                            <div class="mb-3">
+                                <label class="form-label">Firstname</label>
+                                <input type="text" class="form-control" name="firstName" [(ngModel)]="bankClient.firstName" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Lastname</label>
+                                <input type="text" class="form-control" name="lastName" [(ngModel)]="bankClient.lastName" disabled>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" name="email" [(ngModel)]="bankClient.email" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Phone</label>
+                                <input type="text" class="form-control" name="phone" [(ngModel)]="bankClient.phone" disabled>
+                            </div>
+                        </div>
+                        
+                       
+                      </form>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Lastname</label>
-            <input type="text" class="form-control" name="lastName" [(ngModel)]="bankClient.lastName">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="text" class="form-control" name="email" [(ngModel)]="bankClient.email">
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Phone</label>
-            <input type="text" class="form-control" name="phone" [(ngModel)]="bankClient.phone">
-        </div>
-        <div class="mb-3">
-            <button class="btn btn-primary">Save</button>
-        </div>
-      </form>
+    </div>
+    
+   
+
+      
 </div>
