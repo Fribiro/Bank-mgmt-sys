@@ -17,6 +17,7 @@ import { ClientUpdateComponent } from './components/client/client-update/client-
 import { ClientWithdrawalFormComponent } from './components/client/client-withdrawal-form/client-withdrawal-form.component';
 import { ClientDepositFormComponent } from './components/client/client-deposit-form/client-deposit-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
