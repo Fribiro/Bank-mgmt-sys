@@ -1,5 +1,6 @@
 using BankApi.Models;
 using BankApi.Models.DTO;
+using BankApi.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -54,6 +55,7 @@ namespace BankApi.Controllers
 
             bankclient.Id = Guid.NewGuid();
             await dbContext.BankClients.AddAsync(bankclient);
+            await dbContext.AccountDetails.AddAsync(new AccountDetails () { BankClients = bankclient});
             await dbContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetBankClientById), new { Id = bankclient.Id }, bankclient);

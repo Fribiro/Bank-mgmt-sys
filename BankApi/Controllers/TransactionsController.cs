@@ -28,9 +28,25 @@ namespace BankApi.Controllers
 
         [HttpGet]
         [Route("{Id:guid}")]
+        [ActionName("GetBankClientById")]
+        public async Task<IActionResult> GetBankClientById(Guid Id) {
+            
+            var bankClient = await dbContext.BankClients.FirstOrDefaultAsync(bC => bC.Id == Id);
+
+            if (bankClient != null)
+            {
+                return Ok(bankClient);
+            }
+
+            return NotFound();
+        }
+
+        [HttpGet]
+        [Route("{Id:guid}")]
         [ActionName("GetBankTransactionById")]
         public async Task<IActionResult> GetBankTransactionById(Guid Id) {
             
+            //var clientAccount = await dbContext.BankClients.FindByIdAsync(bC => bC.Id == Id)
             var bankTransaction = await dbContext.Transactions.FirstOrDefaultAsync(tr => tr.Id == Id);
 
             if (bankTransaction != null)

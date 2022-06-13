@@ -26,6 +26,21 @@ namespace BankApi.Controllers
 
         [HttpGet]
         [Route("{Id:guid}")]
+        [ActionName("GetBankClientById")]
+        public async Task<IActionResult> GetBankClientById(Guid Id) {
+            
+            var bankClient = await dbContext.BankClients.FirstOrDefaultAsync(bC => bC.Id == Id);
+
+            if (bankClient != null)
+            {
+                return Ok(bankClient);
+            }
+
+            return NotFound();
+        }
+
+        [HttpGet]
+        [Route("{Id:guid}")]
         [ActionName("GetBankAccountById")]
         public async Task<IActionResult> GetBankAccountById(Guid Id) {
             
@@ -46,11 +61,11 @@ namespace BankApi.Controllers
             var newaccount = new AccountDetails()
             {
                 AccountType = addAccountDetails.AccountType,
-                AccountBalance = addAccountDetails.AccountBalance,
-                BankClients = addAccountDetails.BankClients
+                AccountBalance = addAccountDetails.AccountBalance
             };
 
             newaccount.Id = Guid.NewGuid();
+            //newaccount.BankClients = await dbContext.BankClients.FirstOrDefaultAsync(ac => ac.Id == BankClients.Id);
             await dbContext.AccountDetails.AddAsync(newaccount);
             await dbContext.SaveChangesAsync();
 
