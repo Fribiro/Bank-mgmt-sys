@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using BankApi.Models.Entity;
 
 namespace BankApi.Models
 {
@@ -14,6 +15,8 @@ namespace BankApi.Models
         public string? Email { get; set; }
 
         public string? Phone { get; set; }
+
+        public List<AccountDetails> AccountDetails { get; set; }
 
     }
 }

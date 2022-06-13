@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BankApi.Migrations
 {
     [DbContext(typeof(BankApiContext))]
-    [Migration("20220610113430_ClientRelationshipWithAccount")]
-    partial class ClientRelationshipWithAccount
+    [Migration("20220613083958_ClientEntityRelatiionships")]
+    partial class ClientEntityRelatiionships
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,17 +54,22 @@ namespace BankApi.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("AccountBalance")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("AccountType")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("BankClient")
+                    b.Property<Guid>("BankClientsId")
                         .HasColumnType("uuid");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BankClient");
+                    b.HasIndex("BankClientsId");
 
                     b.ToTable("AccountDetails");
                 });
@@ -78,6 +83,12 @@ namespace BankApi.Migrations
                     b.Property<string>("AccountBalance")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("AccountDetailsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("TransactionAmount")
                         .HasColumnType("text");
 
@@ -89,18 +100,41 @@ namespace BankApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AccountDetailsId");
+
                     b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("BankApi.Models.Entity.AccountDetails", b =>
                 {
                     b.HasOne("BankApi.Models.BankClients", "BankClients")
-                        .WithMany()
-                        .HasForeignKey("BankClient")
+                        .WithMany("AccountDetails")
+                        .HasForeignKey("BankClientsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("BankClients");
+                });
+
+            modelBuilder.Entity("BankApi.Models.Entity.Transactions", b =>
+                {
+                    b.HasOne("BankApi.Models.Entity.AccountDetails", "AccountDetails")
+                        .WithMany("Transactions")
+                        .HasForeignKey("AccountDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AccountDetails");
+                });
+
+            modelBuilder.Entity("BankApi.Models.BankClients", b =>
+                {
+                    b.Navigation("AccountDetails");
+                });
+
+            modelBuilder.Entity("BankApi.Models.Entity.AccountDetails", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

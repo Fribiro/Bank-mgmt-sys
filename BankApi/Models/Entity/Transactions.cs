@@ -16,5 +16,8 @@ namespace BankApi.Models.Entity
 
         // [ForeignKey("AccountDetails")]
         // public virtual AccountDetails AccountDetails { get; set; }
+        public Guid AccountId { get; set; }
+
+        public AccountDetails AccountDetails { get; set;}
     }
 }
