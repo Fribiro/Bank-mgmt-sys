@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BankApi.Migrations
 {
     [DbContext(typeof(BankApiContext))]
-    [Migration("20220613083958_ClientEntityRelatiionships")]
-    partial class ClientEntityRelatiionships
+    [Migration("20220614134302_AccountTransactionRelationship")]
+    partial class AccountTransactionRelationship
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,8 +30,17 @@ namespace BankApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .HasColumnType("text");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
@@ -39,39 +48,42 @@ namespace BankApi.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("text");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
                     b.Property<string>("Phone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("BankClients");
-                });
-
-            modelBuilder.Entity("BankApi.Models.Entity.AccountDetails", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("AccountBalance")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("AccountType")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("BankClientsId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BankClientsId");
-
-                    b.ToTable("AccountDetails");
                 });
 
             modelBuilder.Entity("BankApi.Models.Entity.Transactions", b =>
@@ -80,13 +92,10 @@ namespace BankApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("AccountBalance")
-                        .HasColumnType("text");
+                    b.Property<int?>("AccountBalance")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("AccountDetailsId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AccountId")
+                    b.Property<Guid>("BankClientsId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("TransactionAmount")
@@ -100,15 +109,15 @@ namespace BankApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountDetailsId");
+                    b.HasIndex("BankClientsId");
 
                     b.ToTable("Transactions");
                 });
 
-            modelBuilder.Entity("BankApi.Models.Entity.AccountDetails", b =>
+            modelBuilder.Entity("BankApi.Models.Entity.Transactions", b =>
                 {
                     b.HasOne("BankApi.Models.BankClients", "BankClients")
-                        .WithMany("AccountDetails")
+                        .WithMany("Transactions")
                         .HasForeignKey("BankClientsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -116,23 +125,7 @@ namespace BankApi.Migrations
                     b.Navigation("BankClients");
                 });
 
-            modelBuilder.Entity("BankApi.Models.Entity.Transactions", b =>
-                {
-                    b.HasOne("BankApi.Models.Entity.AccountDetails", "AccountDetails")
-                        .WithMany("Transactions")
-                        .HasForeignKey("AccountDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AccountDetails");
-                });
-
             modelBuilder.Entity("BankApi.Models.BankClients", b =>
-                {
-                    b.Navigation("AccountDetails");
-                });
-
-            modelBuilder.Entity("BankApi.Models.Entity.AccountDetails", b =>
                 {
                     b.Navigation("Transactions");
                 });

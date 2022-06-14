@@ -12,12 +12,8 @@ namespace BankApi.Models.Entity
 
         public string? TransactionAmount { get; set; }
 
-        public string? AccountBalance { get; set; }
+        public int? AccountBalance { get; set; }
 
-        // [ForeignKey("AccountDetails")]
-        // public virtual AccountDetails AccountDetails { get; set; }
-        public Guid AccountId { get; set; }
-
-        public AccountDetails AccountDetails { get; set;}
+        public BankClients BankClients { get; set; }
     }
 }

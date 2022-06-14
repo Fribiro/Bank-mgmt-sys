@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using BankApi.Models.Entity;
+using Microsoft.AspNetCore.Identity;
 
 namespace BankApi.Models
 {
-    public class BankClients
+    public class BankClients : IdentityUser
     {
         
         public Guid Id { get; set; }
@@ -16,7 +17,7 @@ namespace BankApi.Models
 
         public string? Phone { get; set; }
 
-        public List<AccountDetails> AccountDetails { get; set; }
+        public List<Transactions> Transactions { get; set; }
 
     }
 }

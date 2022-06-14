@@ -55,10 +55,36 @@ namespace BankApi.Controllers
 
             bankclient.Id = Guid.NewGuid();
             await dbContext.BankClients.AddAsync(bankclient);
-            await dbContext.AccountDetails.AddAsync(new AccountDetails () { BankClients = bankclient});
+            //await dbContext.AccountDetails.AddAsync(new AccountDetails () { BankClients = bankclient});
             await dbContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetBankClientById), new { Id = bankclient.Id }, bankclient);
+            
+        }
+
+        [HttpPost]
+        [Route("deposit/{Id:guid}")]
+
+        public async Task<IActionResult> AddNewTransaction([FromRoute] Guid Id,[FromQueryAttribute] Transactions transactions,[FromBodyAttribute] AddClientTransaction addClientTransaction)
+        {
+            //addClientTransaction.BankClients = Id;
+
+            var clientTransaction = new Transactions()
+            {
+                TransactionType = addClientTransaction.TransactionType,
+                TransactionDate = addClientTransaction.TransactionDate,
+                TransactionAmount = addClientTransaction.TransactionAmount,
+                AccountBalance = addClientTransaction.AccountBalance,
+                BankClients = addClientTransaction.BankClients
+                //transactions.AccountBalance - addClientTransaction.AccountBalance (bankClients.Id == addClientTransaction.BankClients)
+              
+            };
+
+            clientTransaction.Id = Guid.NewGuid();
+            await dbContext.Transactions.AddAsync(clientTransaction);
+            await dbContext.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetBankClientById), clientTransaction);
             
         }
 
