@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using BankApi.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,9 @@ builder.Services.AddCors(options => options.AddPolicy("default", policy =>
 {
     policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
 }));
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 

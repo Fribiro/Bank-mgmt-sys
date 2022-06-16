@@ -1,5 +1,6 @@
 using BankApi.Models;
 using BankApi.Models.DTO;
+using BankApi.Models.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -54,9 +55,36 @@ namespace BankApi.Controllers
 
             bankclient.Id = Guid.NewGuid();
             await dbContext.BankClients.AddAsync(bankclient);
+            //await dbContext.AccountDetails.AddAsync(new AccountDetails () { BankClients = bankclient});
             await dbContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetBankClientById), new { Id = bankclient.Id }, bankclient);
+            
+        }
+
+        [HttpPost]
+        [Route("deposit/{Id:guid}")]
+
+        public async Task<IActionResult> AddNewTransaction([FromRoute] Guid Id, AddClientTransaction addClientTransaction)
+        {
+            var clientFk = await dbContext.BankClients.FirstOrDefaultAsync(bC => bC.Id == Id);
+
+
+            var clientTransaction = new Transactions()
+            {
+                TransactionType = addClientTransaction.TransactionType,
+                TransactionDate = addClientTransaction.TransactionDate,
+                TransactionAmount = addClientTransaction.TransactionAmount,
+                AccountBalance = addClientTransaction.AccountBalance,
+                BankClients = clientFk
+              
+            };
+
+            clientTransaction.Id = Guid.NewGuid();
+            await dbContext.Transactions.AddAsync( clientTransaction);
+            await dbContext.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetBankClientById), clientTransaction);
             
         }
 

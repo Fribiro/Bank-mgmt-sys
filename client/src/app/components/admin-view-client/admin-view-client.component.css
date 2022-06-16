@@ -1,0 +1,21 @@
+.form {
+
+}
+
+.button-pair{
+    display: flex;
+}
+
+input {
+    width: 15rem;
+}
+.id-admin-view {
+    overflow: auto;
+}
+
+.btn {
+    width: 5rem;    
+    margin: .5rem;
+    justify-content: center;
+    align-items: center;
+}

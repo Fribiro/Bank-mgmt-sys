@@ -28,8 +28,17 @@ namespace BankApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .HasColumnType("text");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
@@ -37,12 +46,86 @@ namespace BankApi.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("text");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
                     b.Property<string>("Phone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("BankClients");
+                });
+
+            modelBuilder.Entity("BankApi.Models.Entity.Transactions", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int?>("AccountBalance")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("BankClientsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("TransactionAmount")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("TransactionType")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankClientsId");
+
+                    b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("BankApi.Models.Entity.Transactions", b =>
+                {
+                    b.HasOne("BankApi.Models.BankClients", "BankClients")
+                        .WithMany("Transactions")
+                        .HasForeignKey("BankClientsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BankClients");
+                });
+
+            modelBuilder.Entity("BankApi.Models.BankClients", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }
