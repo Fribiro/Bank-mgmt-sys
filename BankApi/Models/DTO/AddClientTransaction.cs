@@ -11,7 +11,8 @@ namespace BankApi.Models.DTO
         
         public int? AccountBalance {get;set;}
 
-        public Guid BankClients {get;set;}
+        public Guid BankClients { get; set; }
+
 
     }
 }

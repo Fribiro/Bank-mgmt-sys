@@ -65,9 +65,10 @@ namespace BankApi.Controllers
         [HttpPost]
         [Route("deposit/{Id:guid}")]
 
-        public async Task<IActionResult> AddNewTransaction([FromRoute] Guid Id,[FromQueryAttribute] Transactions transactions,[FromBodyAttribute] AddClientTransaction addClientTransaction)
+        public async Task<IActionResult> AddNewTransaction([FromRoute] Guid Id, AddClientTransaction addClientTransaction)
         {
-            //addClientTransaction.BankClients = Id;
+            var clientFk = await dbContext.BankClients.FirstOrDefaultAsync(bC => bC.Id == Id);
+
 
             var clientTransaction = new Transactions()
             {
@@ -75,13 +76,12 @@ namespace BankApi.Controllers
                 TransactionDate = addClientTransaction.TransactionDate,
                 TransactionAmount = addClientTransaction.TransactionAmount,
                 AccountBalance = addClientTransaction.AccountBalance,
-                BankClients = addClientTransaction.BankClients
-                //transactions.AccountBalance - addClientTransaction.AccountBalance (bankClients.Id == addClientTransaction.BankClients)
+                BankClients = clientFk
               
             };
 
             clientTransaction.Id = Guid.NewGuid();
-            await dbContext.Transactions.AddAsync(clientTransaction);
+            await dbContext.Transactions.AddAsync( clientTransaction);
             await dbContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetBankClientById), clientTransaction);
