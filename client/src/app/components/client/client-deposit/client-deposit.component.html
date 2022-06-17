@@ -1,4 +1,4 @@
-<div class="client-container" *ngIf="bankClient" >
+<div class="client-container" *ngIf="bankClient && clientTransaction" >
     <div class="profile-nav">
 
     </div>
@@ -31,30 +31,49 @@
                         <div class="info"></div>
                     </div>
     
-                    <form #form="ngForm">
+                    <!-- <form #form="ngForm">
                         <div class="info">
                             <div class="mb-3">
-                                <label class="form-label">Firstname</label>
-                                <input type="text" class="form-control" name="firstName" [(ngModel)]="bankClient.firstName" disabled>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Lastname</label>
-                                <input type="text" class="form-control" name="lastName" [(ngModel)]="bankClient.lastName" disabled>
+                                <label class="form-label">Transaction Date</label>
+                                <input type="text" class="form-control" name="Transaction Date" [(ngModel)]="clientTransaction.transactionDate" disabled>
                             </div>
                         </div>
                         <div class="info">
                             <div class="mb-3">
-                                <label class="form-label">Email</label>
-                                <input type="text" class="form-control" name="email" [(ngModel)]="bankClient.email" disabled>
+                                <label class="form-label">Transaction Amount</label>
+                                <input type="text" class="form-control" name="Transaction Amount" [(ngModel)]="clientTransaction.transactionAmount" disabled>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Phone</label>
-                                <input type="text" class="form-control" name="phone" [(ngModel)]="bankClient.phone" disabled>
+                                <label class="form-label">Account Balance</label>
+                                <input type="text" class="form-control" name="Account Balance" [(ngModel)]="clientTransaction.accountBalance" disabled>
                             </div>
                         </div>
                         
                        
-                      </form>
+                      </form> -->
+
+                      <table class="table table-striped">
+                        <th></th>
+                        <th>Transaction Id</th>
+                        <th>Transaction Date</th>
+                        <th>Transaction Amount</th>
+                        <th>Account Balance</th>
+                        <tbody>
+                            <tr *ngFor="let deposit of clientTransaction ; let indexOfelement=index">
+                                <td>
+                                    {{indexOfelement + 1}}
+                                </td>
+                                <td class="client-id" >{{ deposit.id }}</td>
+                                <td>{{ deposit.transactionDate }}</td>
+                                <td>{{ deposit.transactionAmount }}</td>
+                                <td>{{ deposit.accountBalance }}</td>
+                                <td>
+                                    <a [routerLink]="['/admin/client', deposit.id]">View</a>
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

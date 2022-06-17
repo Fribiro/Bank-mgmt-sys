@@ -66,18 +66,26 @@ namespace BankApi.Controllers
         [Route("my-transaction/{Id:guid}")]
         public async Task<IActionResult> GetClientTransactionById(Guid Id) {
             
+            var bankTransactions = await dbContext.Transactions.ToListAsync();
+
             var bankClient = await dbContext.BankClients.FirstOrDefaultAsync(bC => bC.Id == Id);
             var clientTransaction = await dbContext.Transactions.FirstOrDefaultAsync(tr => tr.BankClients == bankClient);
-            if (clientTransaction != null)
+
+            foreach (var transaction in bankTransactions)
             {
-                return Ok(clientTransaction);
+                if (bankTransactions != null && bankTransactions[0].BankClients == bankClient)
+                {
+                    return Ok(clientTransaction);
+                }
             }
+
+            
 
             return NotFound();
         }
 
         [HttpPost]
-        [Route("deposit/{Id:guid}")]
+        [Route("transaction/{Id:guid}")]
 
         public async Task<IActionResult> AddNewTransaction([FromRoute] Guid Id, AddClientTransaction addClientTransaction)
         {
