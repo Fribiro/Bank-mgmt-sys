@@ -44,7 +44,7 @@ namespace BankApi.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TransactionType = table.Column<string>(type: "text", nullable: true),
                     TransactionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    TransactionAmount = table.Column<string>(type: "text", nullable: true),
+                    TransactionAmount = table.Column<int>(type: "integer", nullable: true),
                     AccountBalance = table.Column<int>(type: "integer", nullable: true),
                     BankClientsId = table.Column<Guid>(type: "uuid", nullable: false)
                 },

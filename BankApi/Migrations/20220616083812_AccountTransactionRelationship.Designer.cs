@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BankApi.Migrations
 {
     [DbContext(typeof(BankApiContext))]
-    [Migration("20220615134140_FkColumnInTransactionDto")]
-    partial class FkColumnInTransactionDto
+    [Migration("20220616083812_AccountTransactionRelationship")]
+    partial class AccountTransactionRelationship
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,8 +98,8 @@ namespace BankApi.Migrations
                     b.Property<Guid>("BankClientsId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("TransactionAmount")
-                        .HasColumnType("text");
+                    b.Property<int?>("TransactionAmount")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("TransactionDate")
                         .HasColumnType("timestamp with time zone");

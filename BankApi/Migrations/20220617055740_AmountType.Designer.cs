@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BankApi.Migrations
 {
     [DbContext(typeof(BankApiContext))]
-    [Migration("20220614134302_AccountTransactionRelationship")]
-    partial class AccountTransactionRelationship
+    [Migration("20220617055740_AmountType")]
+    partial class AmountType
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -62,29 +62,70 @@ namespace BankApi.Controllers
             
         }
 
+        [HttpGet]
+        [Route("my-transaction/{Id:guid}")]
+        public async Task<IActionResult> GetClientTransactionById(Guid Id) {
+            
+            var bankClient = await dbContext.BankClients.FirstOrDefaultAsync(bC => bC.Id == Id);
+            var clientTransaction = await dbContext.Transactions.FirstOrDefaultAsync(tr => tr.BankClients == bankClient);
+            if (clientTransaction != null)
+            {
+                return Ok(clientTransaction);
+            }
+
+            return NotFound();
+        }
+
         [HttpPost]
         [Route("deposit/{Id:guid}")]
 
         public async Task<IActionResult> AddNewTransaction([FromRoute] Guid Id, AddClientTransaction addClientTransaction)
         {
             var clientFk = await dbContext.BankClients.FirstOrDefaultAsync(bC => bC.Id == Id);
+            var currentBalance = await dbContext.Transactions.FirstOrDefaultAsync(bC => bC.BankClients.Id == Id);
 
+            var amount = int.Parse(addClientTransaction.TransactionAmount);
 
-            var clientTransaction = new Transactions()
+            if (addClientTransaction.TransactionType == "Deposit")
             {
-                TransactionType = addClientTransaction.TransactionType,
-                TransactionDate = addClientTransaction.TransactionDate,
-                TransactionAmount = addClientTransaction.TransactionAmount,
-                AccountBalance = addClientTransaction.AccountBalance,
-                BankClients = clientFk
-              
-            };
+                var updatedBalance = currentBalance.AccountBalance + amount;
+
+                var clientTransaction = new Transactions()
+                {
+                    TransactionType = addClientTransaction.TransactionType,
+                    TransactionDate = addClientTransaction.TransactionDate,
+                    TransactionAmount = addClientTransaction.TransactionAmount,
+                    AccountBalance = updatedBalance,
+                    BankClients = clientFk
+                
+                };
 
             clientTransaction.Id = Guid.NewGuid();
-            await dbContext.Transactions.AddAsync( clientTransaction);
+            await dbContext.Transactions.AddAsync(clientTransaction);
             await dbContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetBankClientById), clientTransaction);
+            } else {
+                var updatedBalance = currentBalance.AccountBalance - amount;
+
+                var clientTransaction = new Transactions()
+                {
+                    TransactionType = addClientTransaction.TransactionType,
+                    TransactionDate = addClientTransaction.TransactionDate,
+                    TransactionAmount = addClientTransaction.TransactionAmount,
+                    AccountBalance = updatedBalance,
+                    BankClients = clientFk
+                
+                };
+
+            clientTransaction.Id = Guid.NewGuid();
+            await dbContext.Transactions.AddAsync(clientTransaction);
+            await dbContext.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetBankClientById), clientTransaction);
+            }
+
+            
             
         }
 

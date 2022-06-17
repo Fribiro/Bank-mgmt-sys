@@ -8,8 +8,6 @@ namespace BankApi.Models.DTO
         public DateTime TransactionDate { get; set; }
 
         public string? TransactionAmount { get; set; }
-        
-        public int? AccountBalance {get;set;}
 
         public Guid BankClients { get; set; }
 
